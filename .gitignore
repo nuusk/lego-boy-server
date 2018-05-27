@@ -3,3 +3,4 @@ data/
 tables/
 
 dev.js
+.DS_Store
