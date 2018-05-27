@@ -1,0 +1,1 @@
+Data gathered mostly from: https://github.com/psyked/LEGO-Bricks-Data
