@@ -3,68 +3,79 @@ const Brick = require('../models/Brick');
 
 class Database {
 
-  async addProduct(product) {
- 
-    Product.create({
-      name: product.name,
-      imageUrl: product.imageUrl,
-      tags: product.tags,
-      prices: product.prices,
-      sizes: product.sizes,
-      sex: product.sex
-    })
-
+  async addLegoSet(legoSet) {
+    LegoSet.create({
+      legoSetId: legooSet.id,
+      name: legoSet.name,
+      imageURL: legoSet.imageURL,
+      bricks: legoSet.bricks
+    });
   }
 
-  findProductsByTag(tag) {
+  async addBrick(brick) {
+    Brick.create({
+      brickId: brick.brickId,
+      name: brick.name,
+      imageURL: brick.imageURL
+    });
+  }
+
+  findLegoSetById(legoSetId) {
     return new Promise((resolve, reject) => {
-      Product.find({ tags: tag })
+      LegoSet.find({ legoSetId: legoSetId })
         .then((res) => {
           resolve(res)
         });
     });
   }
 
-  findProductById(productId) {
+  findLegoSetByName(name) {
     return new Promise((resolve, reject) => {
-      Product.findById(productId, (err, product) => {
+      LegoSet.find({ name: name })
+        .then((res) => {
+          resolve(res)
+        });
+    });
+  }
+
+  findLegoSets() {
+    return new Promise((resolve, reject) => {
+      LegoSet.find({}, (err, legoSets) => {
         if (err) return console.error(err);
-        resolve(product);
+        resolve(legoSets);
       });
     });
   }
 
-  findProducts() {
+
+  findBrickById(brickId) {
     return new Promise((resolve, reject) => {
-      Product.find({}, (err, products) => {
-        if (err) return console.error(err);
-        resolve(products);
-      })
-    })
+      Brick.find({ brickId: brickId })
+        .then((res) => {
+          resolve(res)
+        });
+    });
   }
 
-  findProductsByName(name) {
+  findBrickByName(name) {
     return new Promise((resolve, reject) => {
-      Product.find({
-        name: { $in: name }
-      }, (err, products) => {
+      Brick.find({ name: name })
+        .then((res) => {
+          resolve(res)
+        });
+    });
+  }
+
+  findBricks() {
+    return new Promise((resolve, reject) => {
+      Brick.find({}, (err, bricks) => {
         if (err) return console.error(err);
-        resolve(products);
+        resolve(bricks);
       });
     });
   }
 
-  findSimilarProducts(sex, tags) {
-    return new Promise((resolve, reject) => {
-      Product.find({
-        tags: { $in : tags },
-        sex: { $in: ['unisex', sex] }
-      }, (err, products) => {
-        if (err) return console.error(err);
-        resolve(products);
-      });
-    });
-  }
+
 }
 
 module.exports = Database;
