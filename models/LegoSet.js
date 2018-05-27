@@ -5,7 +5,11 @@ const LegoSetSchema = Schema({
   legoSetId: String,
   name: String,
   imageURL: String,
-  bricks: [String]    // List of brick ID's
+  bricks: [{
+    id: String,
+    name: String,
+    imageURL: String
+  }]    // List of brick ID's
 });
 
 const LegoSet = mongoose.model('legoSets', LegoSetSchema);
