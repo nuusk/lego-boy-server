@@ -17,7 +17,11 @@ legoSetsFileNames.forEach(legoSetFileName => {
     legoSet.name = tmp.Product.ProductName;
     legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
     tmp.Bricks.forEach(brick => {
-      legoSet.bricks.push(brick.DesignId);
+      let tmpBrick = {};
+      tmpBrick.id = brick.DesignId;
+      tmpBrick.name = brick.ItemDescr;
+      tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
+      legoSet.bricks.push(tmpBrick);
     });
     console.log(legoSet);
   } catch (e) {
