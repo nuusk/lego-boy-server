@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const LegoSetSchema = Schema({
-  legoSetId: String,
+  legoSetID: String,
   name: String,
   imageURL: String,
   bricks: [{

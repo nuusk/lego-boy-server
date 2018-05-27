@@ -5,11 +5,12 @@ class Database {
 
   async addLegoSet(legoSet) {
     LegoSet.create({
-      legoSetId: legooSet.id,
+      legoSetId: legoSet.legoSetID,
       name: legoSet.name,
       imageURL: legoSet.imageURL,
       bricks: legoSet.bricks
     });
+    // console.log(legoSet);
   }
 
   async addBrick(brick) {

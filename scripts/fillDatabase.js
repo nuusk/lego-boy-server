@@ -5,35 +5,38 @@ const keys = require('../config/keys');
 
 const db = new Database();
 
-const legoSetsImages = require('../data/lego-sets.json');
-let i = 0 ;
-const legoSetsFileNames = fs.readdirSync(__dirname + '/../data/sets/');
-legoSetsFileNames.forEach(legoSetFileName => {
-  legoSetFile = fs.readFileSync(`${__dirname}/../data/sets/${legoSetFileName}`, 'utf-8');
-  let legoSet = { bricks: [] };
-  try {
-    let tmp = JSON.parse(legoSetFile);
-    legoSet.legoSetId = tmp.Product.ProductNo;
-    legoSet.name = tmp.Product.ProductName;
-    legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
-    tmp.Bricks.forEach(brick => {
-      let tmpBrick = {};
-      tmpBrick.id = brick.DesignId;
-      tmpBrick.name = brick.ItemDescr;
-      tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
-      legoSet.bricks.push(tmpBrick);
+// Toggle only the collections that you actually want to fill in mLab
+const FILLING_LEGO_SETS = false;
+
+mongoose.connect(keys.mongoURI, () => {
+  console.log('Successfully connected to DB!');
+
+  // Fill Lego Sets collection
+  if (FILLING_LEGO_SETS) {
+    const legoSetsImages = require('../data/lego-sets.json');
+    const legoSetsFileNames = fs.readdirSync(__dirname + '/../data/sets/');
+    legoSetsFileNames.forEach(legoSetFileName => {
+      legoSetFile = fs.readFileSync(`${__dirname}/../data/sets/${legoSetFileName}`, 'utf-8');
+      let legoSet = { bricks: [] };
+      try {
+        let tmp = JSON.parse(legoSetFile);
+        legoSet.legoSetID = tmp.Product.ProductNo;
+        legoSet.name = tmp.Product.ProductName;
+        legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
+        tmp.Bricks.forEach(brick => {
+          let tmpBrick = {};
+          tmpBrick.id = brick.DesignId;
+          tmpBrick.name = brick.ItemDescr;
+          tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
+          legoSet.bricks.push(tmpBrick);
+        });
+        db.addLegoSet(legoSet);
+      } catch (e) {
+        console.log(e);
+      }
     });
-    console.log(legoSet);
-  } catch (e) {
-    console.log(e);
+
+    console.log('Filled Lego Sets collection!');
   }
+  
 });
-
-// mongoose.connect(keys.mongoURI, () => {
-//   console.log('Successfully connected to DB!');
-
-//   products.forEach(product => {
-//     // console.log(product);
-//     db.addProduct(product);
-//   });
-// });
