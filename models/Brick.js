@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const BrickSchema = Schema({
-  brickId: String,
+  brickID: String,
   name: String,
   imageURL: String
 });

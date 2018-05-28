@@ -5,25 +5,24 @@ class Database {
 
   async addLegoSet(legoSet) {
     LegoSet.create({
-      legoSetId: legoSet.legoSetID,
+      legoSetID: legoSet.legoSetID,
       name: legoSet.name,
       imageURL: legoSet.imageURL,
       bricks: legoSet.bricks
     });
-    // console.log(legoSet);
   }
 
   async addBrick(brick) {
     Brick.create({
-      brickId: brick.brickId,
+      brickID: brick.brickID,
       name: brick.name,
       imageURL: brick.imageURL
     });
   }
 
-  findLegoSetById(legoSetId) {
+  findLegoSetByID(legoSetID) {
     return new Promise((resolve, reject) => {
-      LegoSet.find({ legoSetId: legoSetId })
+      LegoSet.find({ legoSetID: legoSetID })
         .then((res) => {
           resolve(res)
         });
@@ -49,9 +48,9 @@ class Database {
   }
 
 
-  findBrickById(brickId) {
+  findBrickByID(brickID) {
     return new Promise((resolve, reject) => {
-      Brick.find({ brickId: brickId })
+      Brick.find({ brickID: brickID })
         .then((res) => {
           resolve(res)
         });

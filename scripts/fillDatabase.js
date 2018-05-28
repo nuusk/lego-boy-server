@@ -6,7 +6,8 @@ const keys = require('../config/keys');
 const db = new Database();
 
 // Toggle only the collections that you actually want to fill in mLab
-const FILLING_LEGO_SETS = false;
+const FILLING_LEGO_SETS = true;
+// const FILLING_BRICKS = true;
 
 mongoose.connect(keys.mongoURI, () => {
   console.log('Successfully connected to DB!');
@@ -25,7 +26,7 @@ mongoose.connect(keys.mongoURI, () => {
         legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
         tmp.Bricks.forEach(brick => {
           let tmpBrick = {};
-          tmpBrick.id = brick.DesignId;
+          tmpBrick.id = brick.DesignID;
           tmpBrick.name = brick.ItemDescr;
           tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
           legoSet.bricks.push(tmpBrick);
@@ -35,8 +36,21 @@ mongoose.connect(keys.mongoURI, () => {
         console.log(e);
       }
     });
-
     console.log('Filled Lego Sets collection!');
+  }
+
+  if (FILLING_BRICKS) {
+    const bricksFileNames = fs.readdirSync(`${__dirname}/../data/bricks/`);
+    bricksFileNames.forEach(brickFileName => {
+      brickFile = fs.readFileSync(`${__dirname}/../data/bricks/${brickFileName}/README.md`, 'utf-8').split('\n');
+      // console.log(brickFile);
+      let brick = {
+        brickID: brickFile[1].split(' ')[1],
+        name: brickFile[0].substring(2),
+        imageURL: brickFile[2].substring(brickFile[2].indexOf('(')+1, brickFile[2].length - 1)
+      };
+      db.addBrick(brick);
+    });
   }
   
 });
