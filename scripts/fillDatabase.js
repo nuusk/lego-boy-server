@@ -26,12 +26,12 @@ mongoose.connect(keys.mongoURI, () => {
         legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
         tmp.Bricks.forEach(brick => {
           let tmpBrick = {};
-          tmpBrick.id = brick.DesignID;
+          tmpBrick.id = brick.DesignId;
           tmpBrick.name = brick.ItemDescr;
           tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
           legoSet.bricks.push(tmpBrick);
         });
-        db.addLegoSet(legoSet);
+        // db.addLegoSet(legoSet);
       } catch (e) {
         console.log(e);
       }
