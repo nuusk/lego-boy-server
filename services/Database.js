@@ -10,6 +10,7 @@ class Database {
     LegoSet.create({
       legoSetID: legoSet.legoSetID,
       name: legoSet.name,
+      tags: legoSet.tags,
       imageURL: legoSet.imageURL,
       bricks: legoSet.bricks
     });
@@ -34,7 +35,7 @@ class Database {
 
   findLegoSetByName(name) {
     return new Promise((resolve, reject) => {
-      LegoSet.find({ name: name })
+      LegoSet.find( { tags: { $in: name } } )
         .limit(FIND_QUERY_LIMIT)
         .then((res) => {
           resolve(res)

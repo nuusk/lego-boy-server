@@ -23,6 +23,7 @@ mongoose.connect(keys.mongoURI, () => {
         let tmp = JSON.parse(legoSetFile);
         legoSet.legoSetID = tmp.Product.ProductNo;
         legoSet.name = tmp.Product.ProductName;
+        legoSet.tags = legoSet.name.toLowerCase().split(' ');
         legoSet.imageURL = tmp.ImageBaseUrl + tmp.Product.Asset;
         tmp.Bricks.forEach(brick => {
           let tmpBrick = {};
