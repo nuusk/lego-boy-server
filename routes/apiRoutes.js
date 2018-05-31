@@ -6,10 +6,10 @@ const FANCY_TIMER = 1000;
 
 module.exports = (app) => {
 
-  app.get('/api/legosets', (req, res) => {
+  app.get('/api/legoSets', (req, res) => {
     db.findLegoSets()
-      .then(legosets => {
-        res.send(legosets);
+      .then(legoSets => {
+        res.send(legoSets);
     });
   });
 
@@ -22,29 +22,23 @@ module.exports = (app) => {
 
   // TODO route for products/name
 
-  app.get('/api/products/sex/:sex/tag/:tag', (req, res) => {
-    const sex = req.params.sex;
-    const tags = req.params.tag.split('&');
+  app.get('/api/legoSet/:id', (req, res) => {
+    const id = req.params.id;
 
-    setTimeout(()=>{
-      db.findSimilarProducts(sex, tags)
-      .then(products => {
-        res.send(products);
-      });
-    }, FANCY_TIMER)
+    db.findLegoSetByID(id)
+    .then(legoSet => {
+      res.send(legoSet);
+    });
 
   });
 
-  // TODO work on that, both on server and client.
-  app.get('/api/products/name/:name', (req, res) => {
-    const name = req.params.name.split('&');
+  app.get('/api/legoSets/name/:name', (req, res) => {
+    const name = req.params.name;
 
-    setTimeout(()=>{
-      db.findProductsByName(name)
-      .then(products => {
-        res.send(products);
-      });
-    }, FANCY_TIMER)
+    db.findLegoSetByName(name)
+    .then(legoSets => {
+      res.send(legoSets);
+    });
 
   });
 };

@@ -1,6 +1,9 @@
 const LegoSet = require('../models/LegoSet');
 const Brick = require('../models/Brick');
 
+const FIND_ALL_LIMIT = 20;
+const FIND_QUERY_LIMIT = 20;
+
 class Database {
 
   async addLegoSet(legoSet) {
@@ -32,6 +35,7 @@ class Database {
   findLegoSetByName(name) {
     return new Promise((resolve, reject) => {
       LegoSet.find({ name: name })
+        .limit(FIND_QUERY_LIMIT)
         .then((res) => {
           resolve(res)
         });
@@ -43,7 +47,7 @@ class Database {
       LegoSet.find({}, (err, legoSets) => {
         if (err) return console.error(err);
         resolve(legoSets);
-      });
+      }).limit(FIND_ALL_LIMIT);
     });
   }
 
@@ -71,7 +75,7 @@ class Database {
       Brick.find({}, (err, bricks) => {
         if (err) return console.error(err);
         resolve(bricks);
-      });
+      }).limit(FIND_ALL_LIMIT);
     });
   }
 
