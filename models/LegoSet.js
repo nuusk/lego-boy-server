@@ -9,7 +9,7 @@ const LegoSetSchema = Schema({
     id: String,
     name: String,
     imageURL: String
-  }]    // List of brick ID's
+  }]
 });
 
 const LegoSet = mongoose.model('legoSets', LegoSetSchema);

@@ -31,7 +31,7 @@ mongoose.connect(keys.mongoURI, () => {
           tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
           legoSet.bricks.push(tmpBrick);
         });
-        // db.addLegoSet(legoSet);
+        db.addLegoSet(legoSet);
       } catch (e) {
         console.log(e);
       }
@@ -43,7 +43,6 @@ mongoose.connect(keys.mongoURI, () => {
     const bricksFileNames = fs.readdirSync(`${__dirname}/../data/bricks/`);
     bricksFileNames.forEach(brickFileName => {
       brickFile = fs.readFileSync(`${__dirname}/../data/bricks/${brickFileName}/README.md`, 'utf-8').split('\n');
-      // console.log(brickFile);
       let brick = {
         brickID: brickFile[1].split(' ')[1],
         name: brickFile[0].substring(2),
