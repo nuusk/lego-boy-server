@@ -62,15 +62,6 @@ class Database {
     });
   }
 
-  findBrickByName(name) {
-    return new Promise((resolve, reject) => {
-      Brick.find({ name: name })
-        .then((res) => {
-          resolve(res)
-        });
-    });
-  }
-
   findBricks() {
     return new Promise((resolve, reject) => {
       Brick.find({}, (err, bricks) => {

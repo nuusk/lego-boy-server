@@ -24,21 +24,25 @@ module.exports = (app) => {
 
   app.get('/api/legoSet/:id', (req, res) => {
     const id = req.params.id;
-
     db.findLegoSetByID(id)
     .then(legoSet => {
       res.send(legoSet);
     });
-
   });
 
   app.get('/api/legoSets/name/:name', (req, res) => {
-    const name = req.params.name;
-
+    const name = req.params.name.toLowerCase();
     db.findLegoSetByName(name)
     .then(legoSets => {
       res.send(legoSets);
     });
+  });
 
+  app.get('/api/brick/:id', (req, res) => {
+    const id = req.params.id;
+    db.findBrickByID(id)
+    .then(brick => {
+      res.send(brick);
+    });
   });
 };

@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cors = require('cors');
 
-// require('./models/Product');
-
 mongoose.connect(keys.mongoURI, () => {
   console.log('Successfully connected to DB!');
 });
