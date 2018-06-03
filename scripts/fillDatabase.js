@@ -7,7 +7,7 @@ const db = new Database();
 
 // Toggle only the collections that you actually want to fill in mLab
 const FILLING_LEGO_SETS = true;
-// const FILLING_BRICKS = true;
+const FILLING_BRICKS = false;
 
 mongoose.connect(keys.mongoURI, () => {
   console.log('Successfully connected to DB!');
@@ -36,7 +36,29 @@ mongoose.connect(keys.mongoURI, () => {
           else tmpBrick.quantity = Math.ceil(Math.random()*3);
           legoSet.bricks.push(tmpBrick);
         });
-        db.addLegoSet(legoSet);
+        // db.addLegoSet(legoSet);
+
+
+        /* !!!!!! PART FOR ADDING USER COLLECTION PROJECTS !!!!!!! */
+        if (Math.random() < 0.05) {
+          const project = {
+            legoSetID: legoSet.legoSetID,
+            ownedBricks: [],
+            lastModified: new Date(),
+            isActive: true,
+            isFavourite: false          
+          }
+          tmp.Bricks.forEach(brick => {
+            let tmpBrick = {};
+            tmpBrick.brickID = brick.DesignId;
+            tmpBrick.quantity = 0;
+            project.ownedBricks.push(tmpBrick);
+          });
+          const userID = "44";
+          db.addProjectToUserColection(userID, project);
+        }
+         /* !!!!!! PART FOR ADDING USER COLLECTION PROJECTS !!!!!!! */
+
       } catch (e) {
         console.log(e);
       }
