@@ -54,8 +54,8 @@ mongoose.connect(keys.mongoURI, () => {
             tmpBrick.quantity = 0;
             project.ownedBricks.push(tmpBrick);
           });
-          const userID = "44";
-          db.addProjectToUserColection(userID, project);
+          db.addProject(project);
+          // console.log(project);
         }
          /* !!!!!! PART FOR ADDING USER COLLECTION PROJECTS !!!!!!! */
 

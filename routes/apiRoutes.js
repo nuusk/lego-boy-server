@@ -46,59 +46,32 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/login', (req, res) => {
-    db.findUserByNickName(req.body.nickName)
-    .then(user => {
-      res.send(user);
-    });
-  });
-
-  app.post('/register', (req, res) => {
-    let user = {
-      userID: Math.ceil(Math.random()*400000000),
-      nickName: req.body.nickName,
-      avatarURL: 'http://static.tumblr.com/3bb886fed6db1e0e5ff65313247acaab/a0mxml5/IG5o8jgvg/tumblr_static_p6p0ifmzvkg884kwcc8cg8ck.png',
-      dateJoined: new Date(),
-      lastLoginDate: new Date()
-    }
-    db.addUserProfile(user);
-  });
-
-  // app.post('/api/increment', (req, res) => {
-  //   let userID = req.body.userID;
-  //   let legoSetID = req.body.legoSetID;
-  //   let brickID = req.body.brickID;
-
-  //   db.incrementBrickNumberInProject(userID, legoSetID, brickID)
-  //   .then(numBricks => {
-  //     res.send(numBricks);
-  //   })
-  // });
-
-  app.get('/api/increment', (req, res) => {
-    let userID = 44;
-    let legoSetID = 10015;
-    let brickID = 3795;
-
-    db.incrementBrickNumberInProject(userID, legoSetID, brickID);
-    console.log('asd');
-  });
-
-  app.post('/api/decrement', (req, res) => {
-    let userID = req.body.userID;
+  app.post('/api/increment', (req, res) => {
     let legoSetID = req.body.legoSetID;
     let brickID = req.body.brickID;
 
-    db.decrementBrickNumberInProject(userID, legoSetID, brickID)
-    .then(numBricks => {
-      res.send(numBricks);
-    })
+    db.incrementOwnedBricksNumber(legoSetID, brickID);
   });
 
-  app.get('/api/collection/:userID', (req, res) => {
-    db.findUserCollections(req.params.userID)
-    .then(collection => {
-      res.send(collection);
+  app.post('/api/decrement', (req, res) => {
+    let legoSetID = req.body.legoSetID;
+    let brickID = req.body.brickID;
+
+    db.decrementOwnedBricksNumber(legoSetID, brickID);
+  });
+
+
+  app.get('/api/project/:id', (req, res) => {
+    db.findProjectByID(req.params.id)
+    .then(project => {
+      res.send(project);
+    });
+  });
+
+  app.get('/api/projects', (req, res) => {
+    db.findProjects()
+    .then(projects => {
+      res.send(projects);
     })
   });
 };
