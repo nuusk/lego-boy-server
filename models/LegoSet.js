@@ -8,7 +8,8 @@ const LegoSetSchema = Schema({
   bricks: [{
     id: String,
     name: String,
-    imageURL: String
+    imageURL: String,
+    quantity: Number
   }],
   tags: [String]          // for finding lego set by name ('tags' is just an array of words from the name)
 });

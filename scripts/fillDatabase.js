@@ -30,6 +30,10 @@ mongoose.connect(keys.mongoURI, () => {
           tmpBrick.id = brick.DesignId;
           tmpBrick.name = brick.ItemDescr;
           tmpBrick.imageURL = tmp.ImageBaseUrl + brick.Asset;
+          
+          // magic math, don't even bother
+          if (Math.random() < 0.2) tmpBrick.quantity = Math.ceil(Math.random()*9);
+          else tmpBrick.quantity = Math.ceil(Math.random()*3);
           legoSet.bricks.push(tmpBrick);
         });
         db.addLegoSet(legoSet);
