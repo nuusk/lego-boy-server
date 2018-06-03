@@ -10,6 +10,6 @@ const UserProfileSchema = Schema({
   lastLoginDate: Date
 });
 
-const UserProfile = mongoose.model('usercollecions', UserProfileSchema);
+const UserProfile = mongoose.model('userprofiles', UserProfileSchema);
 
 module.exports = UserProfile;
