@@ -74,4 +74,8 @@ module.exports = (app) => {
       res.send(projects);
     })
   });
+
+  app.get('/info', (req, res) => {
+    res.send("<h2>'/api/legoSets'</h2><h3> GET </h3><p> get all legoSets </p><h2>'/api/bricks'</h2><h3> GET </h3><p> get all bricks</p><h2>'/api/legoSet/:id'</h2><h3> GET </h3><p> get legoSet with given ID</p><h2>'/api/legoSets/name/:name </h2><h3> GET </h3><p> search legoSet by name </p><h2>'/api/brick/:id'</h2><h3> GET </h3><p> get brick with given ID </p><h2>'/api/increment'</h2><p> get all /decrement' </p><h2>'/api/project/:id'</h2><h3> GET<p> get all /project/:id' </p><h2>'/api/projects'</h2><h3> GET<p> get all /projects' </p><h3> /api/increment' </h3><h3> POST </h3><p> increment owned blocks for specific project <br/> in body include legoSetID and brickID </p><h2>'/api/decrement'</h2><h3> POST </h3><p> decrement owned blocks for specific project <br/> in body include legoSetID and brickID </p>");
+  })
 };
