@@ -57,7 +57,10 @@ module.exports = (app) => {
     let legoSetID = req.body.legoSetID;
     let brickID = req.body.brickID;
 
-    db.decrementOwnedBricksNumber(legoSetID, brickID);
+    db.decrementOwnedBricksNumber(legoSetID, brickID)
+    .then(project => {
+      res.send(project);
+    });
   });
 
 

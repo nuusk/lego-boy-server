@@ -100,13 +100,20 @@ class Database {
   }
 
   incrementOwnedBricksNumber(legoSetID, brickID) {
-    Project.update(
-      { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
-      { $inc: { "ownedBricks.$.quantity": 1 } },
-      () => {
-        // Successfully incremented
-      }
-    );
+    return new Promise((resolve, reject) => {
+      Project.update(
+        { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
+        { $inc: { "ownedBricks.$.quantity": 1 } },
+        (err) => {
+          if (err) return console.error(err);
+          Project.find({ legoSetID: legoSetID }, (err, project) => {
+            if (err) return console.error(err);
+            resolve(project);
+          });
+        }
+      );
+    });
+    
   }
 
   decrementOwnedBricksNumber(legoSetID, brickID) {
