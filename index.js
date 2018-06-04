@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 mongoose.connect(keys.mongoURI, () => {
   console.log('Successfully connected to DB!');
@@ -9,6 +10,8 @@ mongoose.connect(keys.mongoURI, () => {
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 require('./routes/apiRoutes')(app);
 
