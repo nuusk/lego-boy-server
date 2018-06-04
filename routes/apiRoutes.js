@@ -66,6 +66,24 @@ module.exports = (app) => {
     });
   });
 
+  app.post('/api/activate', (req, res) => {
+    let legoSetID = req.body.legoSetID;
+
+    db.activateProject(legoSetID)
+    .then(project => {
+      res.send(project);
+    });;
+  });
+
+  app.post('/api/deactivate', (req, res) => {
+    let legoSetID = req.body.legoSetID;
+
+    db.deactivateProject(legoSetID)
+    .then(project => {
+      res.send(project);
+    });;
+  });
+
 
   app.get('/api/project/:id', (req, res) => {
     db.findProjectByID(req.params.id)
