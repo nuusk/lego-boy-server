@@ -50,7 +50,10 @@ module.exports = (app) => {
     let legoSetID = req.body.legoSetID;
     let brickID = req.body.brickID;
 
-    db.incrementOwnedBricksNumber(legoSetID, brickID);
+    db.incrementOwnedBricksNumber(legoSetID, brickID)
+    .then(project => {
+      res.send(project);
+    });;
   });
 
   app.post('/api/decrement', (req, res) => {

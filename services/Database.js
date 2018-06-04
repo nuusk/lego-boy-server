@@ -136,6 +136,39 @@ class Database {
       );
     }); 
   }
+
+  activateProject(legoSetID) {
+    return new Promise((resolve, reject) => {
+      Project.update(
+        { legoSetID: legoSetID },
+        {  $set: { isActive: true } },
+        (err) => {
+          if (err) return console.error(err);
+          Project.find({ legoSetID: legoSetID }, (err, project) => {
+            if (err) return console.error(err);
+            resolve(project);
+          }); 
+        }
+      );
+    }); 
+  }
+
+  deactivateProject(legoSetID) {
+    return new Promise((resolve, reject) => {
+      Project.update(
+        { legoSetID: legoSetID },
+        {  $set: { isActive: false } },
+        (err) => {
+          if (err) return console.error(err);
+          Project.find({ legoSetID: legoSetID }, (err, project) => {
+            if (err) return console.error(err);
+            resolve(project);
+          }); 
+        }
+      );
+    }); 
+  }
+
 }
 
 
