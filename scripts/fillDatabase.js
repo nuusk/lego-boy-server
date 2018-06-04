@@ -44,7 +44,7 @@ mongoose.connect(keys.mongoURI, () => {
           const project = {
             legoSetID: legoSet.legoSetID,
             ownedBricks: [],
-            lastModified: new Date(),
+            lastModified: new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }),
             isActive: true,
             isFavourite: false          
           }

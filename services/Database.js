@@ -105,7 +105,7 @@ class Database {
         { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
         { 
           $inc: { "ownedBricks.$.quantity": 1 },
-          $set: { "lastModified": new Date() }
+          $set: { "lastModified": new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }) }
         },
         (err) => {
           if (err) return console.error(err);
@@ -124,7 +124,7 @@ class Database {
         { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
         { 
           $inc: { "ownedBricks.$.quantity": -1 },
-          $set: { "lastModified": new Date() }
+          $set: { "lastModified": new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }) }
         },
         (err) => {
           if (err) return console.error(err);
