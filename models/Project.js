@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ProjectSchema = Schema({
-  legoSetID: String,
-  ownedBricks: [{
+  legoSetID: Number,
+  name: String,
+  bricks: [{
     brickID: Number,
-    quantity: Number
+    name: String,
+    imageURL: String,
+    ownedQuantity: Number,
+    requiredQuantity: Number
   }],
   lastModified: Date,
   isActive: Boolean,

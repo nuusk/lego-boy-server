@@ -43,16 +43,20 @@ mongoose.connect(keys.mongoURI, () => {
         if (Math.random() < 0.05) {
           const project = {
             legoSetID: legoSet.legoSetID,
-            ownedBricks: [],
+            bricks: [],
             lastModified: new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }),
             isActive: true,
             isFavourite: false          
           }
           tmp.Bricks.forEach(brick => {
+            // console.log(brick);
             let tmpBrick = {};
             tmpBrick.brickID = brick.DesignId;
-            tmpBrick.quantity = 0;
-            project.ownedBricks.push(tmpBrick);
+            tmpBrick.name = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).name;
+            tmpBrick.imageURL = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).imageURL;
+            tmpBrick.ownedQuantity = 0;
+            tmpBrick.requiredQuantity = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).quantity;
+            project.bricks.push(tmpBrick);
           });
           db.addProject(project);
           // console.log(project);
