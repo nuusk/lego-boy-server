@@ -116,14 +116,21 @@ module.exports = (app) => {
       isActive: true,
       isFavourite: false
     };
-    db.findProjectByID(newProject.legoSetID)
-    .then(project => {
-      if (project.length) {
-        res.status(409).send({error: 'Juz jest, ziom.'});
+    db.findLegoSetByID(newProject.legoSetID)
+    .then(legoSet => {
+      if (!legoSet.length) {
+        res.status(409).send({error: 'There is no such lego set with given project ID!'});
       } else {
-        db.addProject(newProject)
+        db.findProjectByID(newProject.legoSetID)
         .then(project => {
-          res.send(project);
+          if (project.length) {
+            res.status(409).send({error: 'Such project already exists!'});
+          } else {
+            db.addProject(newProject)
+            .then(project => {
+              res.send(project);
+            });
+          }
         });
       }
     });
