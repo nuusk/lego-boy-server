@@ -99,18 +99,18 @@ module.exports = (app) => {
     })
   });
 
+  app.post('/api/activate', (req, res) => {
+    let legoSetID = req.body.legoSetID;
+
+    db.activateProject(legoSetID)
+    .then(project => {
+      res.send(project);
+    });;
+  });
+
   app.post('/api/project', (req, res) => {
-    const newProject = {
-      legoSetID: req.body.legoSetID,
-      ownedBricks: [],
-      lastModified: new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }),
-      isActive: true,
-      isFavourite: false
-    };
-    res.send('test');
     db.findProjectByID(newProject.legoSetID)
     .then(project => {
-      console.log(project);
       if (project) {
         console.log('juz jest ziom');
         res.send('juz jest ziom');
