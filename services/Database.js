@@ -92,7 +92,7 @@ class Database {
       Project.find({
         legoSetID: projectID
       }).remove(()=>{
-        resolve('Project successfully deleted.');
+        resolve({message: 'Project successfully deleted.'});
       });
     });
   }
