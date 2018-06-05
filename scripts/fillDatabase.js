@@ -40,9 +40,10 @@ mongoose.connect(keys.mongoURI, () => {
 
 
         /* !!!!!! PART FOR ADDING USER COLLECTION PROJECTS !!!!!!! */
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.01) {
           const project = {
             legoSetID: legoSet.legoSetID,
+            name: legoSet.name,
             bricks: [],
             lastModified: new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }),
             isActive: true,
@@ -59,7 +60,7 @@ mongoose.connect(keys.mongoURI, () => {
             project.bricks.push(tmpBrick);
           });
           db.addProject(project);
-          // console.log(project);
+          // console.log(project.name);
         }
          /* !!!!!! PART FOR ADDING USER COLLECTION PROJECTS !!!!!!! */
 

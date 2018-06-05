@@ -75,6 +75,7 @@ class Database {
   async addProject(project) {
     const newProject = new Project({
       legoSetID: project.legoSetID,
+      name: project.name,
       bricks: project.bricks,
       lastModified: project.lastModified,
       isActive: project.isActive,

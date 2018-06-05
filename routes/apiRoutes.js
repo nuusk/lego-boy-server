@@ -111,7 +111,8 @@ module.exports = (app) => {
   app.post('/api/project', (req, res) => {
     const newProject = {
       legoSetID: req.body.legoSetID,
-      ownedBricks: [],
+      name: '',
+      bricks: [],
       lastModified: new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }),
       isActive: true,
       isFavourite: false
@@ -121,11 +122,15 @@ module.exports = (app) => {
       if (!legoSet.length) {
         res.status(409).send({error: 'There is no such lego set with given project ID!'});
       } else {
+        newProject.name = legoSet[0].name;
         legoSet[0].bricks.forEach(brick => {
           let tmpBrick = {};
           tmpBrick.brickID = brick.id;
-          tmpBrick.quantity = 0;
-          newProject.ownedBricks.push(tmpBrick);
+          tmpBrick.name = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).name;
+          tmpBrick.imageURL = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).imageURL;
+          tmpBrick.ownedQuantity = 0;
+          tmpBrick.requiredQuantity = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).quantity;
+          newProject.bricks.push(tmpBrick);
         });
         db.findProjectByID(newProject.legoSetID)
         .then(project => {
