@@ -121,7 +121,7 @@ module.exports = (app) => {
       if (!legoSet.length) {
         res.status(409).send({error: 'There is no such lego set with given project ID!'});
       } else {
-        legoSet.bricks.forEach(brick => {
+        legoSet[0].bricks.forEach(brick => {
           let tmpBrick = {};
           tmpBrick.brickID = brick.id;
           tmpBrick.quantity = 0;

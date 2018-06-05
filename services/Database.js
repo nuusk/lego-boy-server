@@ -20,6 +20,7 @@ class Database {
   findLegoSetByID(legoSetID) {
     return new Promise((resolve, reject) => {
       LegoSet.find({ legoSetID: legoSetID })
+        .limit(1)
         .then((res) => {
           resolve(res)
         });
