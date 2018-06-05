@@ -72,32 +72,20 @@ class Database {
     });
   }
 
-  async addProject(project, res) {
-    const newProject = new Project({
-      legoSetID: project.legoSetID,
-      name: project.name,
-      bricks: project.bricks,
-      lastModified: project.lastModified,
-      isActive: project.isActive,
-      isFavourite: project.isFavourite
-    });
-    await newProject.save(err => {
-      if (err) console.error(err);
-      res.status(200).send('Success.');
+  async addProject(project) {
+    return new Promise((resolve, reject) => {
+      Project.create({
+        legoSetID: project.legoSetID,
+        name: project.name,
+        bricks: project.bricks,
+        lastModified: project.lastModified,
+        isActive: project.isActive,
+        isFavourite: project.isFavourite
+      }, (err, newProject) => {
+        if (err) console.error(err);
+        resolve(newProject);
+      });
     })
-    
-    // return new Promise((resolve, reject) => {
-    //   Project.create({
-    //     legoSetID: project.legoSetID,
-    //     ownedBricks: project.ownedBricks,
-    //     lastModified: project.lastModified,
-    //     isActive: project.isActive,
-    //     isFavourite: project.isFavourite
-    //   }, (err, project) => {
-    //     if (err) return console.error(err);
-    //     resolve(project);
-    //   });
-    // });
   }
 
   async removeProject(projectID) {

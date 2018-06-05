@@ -126,10 +126,10 @@ module.exports = (app) => {
         legoSet[0].bricks.forEach(brick => {
           let tmpBrick = {};
           tmpBrick.brickID = brick.id;
-          tmpBrick.name = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).name;
-          tmpBrick.imageURL = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).imageURL;
+          tmpBrick.name = legoSet[0].bricks.find(brick => brick.id === tmpBrick.brickID).name;
+          tmpBrick.imageURL = legoSet[0].bricks.find(brick => brick.id === tmpBrick.brickID).imageURL;
           tmpBrick.ownedQuantity = 0;
-          tmpBrick.requiredQuantity = legoSet.bricks.find(brick => brick.id === tmpBrick.brickID).quantity;
+          tmpBrick.requiredQuantity = legoSet[0].bricks.find(brick => brick.id === tmpBrick.brickID).quantity;
           newProject.bricks.push(tmpBrick);
         });
         db.findProjectByID(newProject.legoSetID)
@@ -138,10 +138,10 @@ module.exports = (app) => {
             res.status(409).send({error: 'Such project already exists!'});
           } else {
             console.log('nie wysyla promisa?');
-            db.addProject(newProject, res)
-            // .then(() => {
-            //   res.status(200).send({message: 'Project successfully created.'});
-            // });
+            db.addProject(newProject)
+            .then(() => {
+              res.status(200).send({ message: 'Project successfully created.'});
+            });
           }
         });
       }
@@ -150,16 +150,14 @@ module.exports = (app) => {
 
   app.delete('/api/project', (req, res) => {
     const legoSetID =  req.body.legoSetID;
-
     db.findProjectByID(legoSetID)
       .then(project => {
-        console.log(project);
         if (!project.length) {
           res.status(409).send({error: 'There is no such project!'});
         } else {
           db.removeProject(legoSetID)
           .then(() => {
-            res.status(200).send({message: 'Project successfully created.'});
+            res.status(200).send({message: 'Project successfully deleted.'});
           });
         }
       });
