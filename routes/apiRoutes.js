@@ -107,7 +107,7 @@ module.exports = (app) => {
       isActive: true,
       isFavourite: false
     };
-
+    res.send('test');
     db.findProjectByID(newProject.legoSetID)
     .then(project => {
       console.log(project);
