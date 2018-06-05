@@ -72,13 +72,19 @@ class Database {
   }
 
   async addProject(project) {
-    Project.create({
-      legoSetID: project.legoSetID,
-      ownedBricks: project.ownedBricks,
-      lastModified: project.lastModified,
-      isActive: project.isActive,
-      isFavourite: project.isFavourite
-    })
+    return new Promise((resolve, reject) => {
+      Project.create({
+        legoSetID: project.legoSetID,
+        ownedBricks: project.ownedBricks,
+        lastModified: project.lastModified,
+        isActive: project.isActive,
+        isFavourite: project.isFavourite
+      }, (err, project) => {
+        if (err) return console.error(err);
+        resolve(project);
+      });
+    });
+   
   }
 
   findProjects() {
