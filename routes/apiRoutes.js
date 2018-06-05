@@ -132,6 +132,7 @@ module.exports = (app) => {
           if (project.length) {
             res.status(409).send({error: 'Such project already exists!'});
           } else {
+            console.log('nie wysyla promisa?');
             db.addProject(newProject)
             .then(project => {
               res.send(project);
