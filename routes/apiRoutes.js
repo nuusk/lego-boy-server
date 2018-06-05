@@ -153,6 +153,7 @@ module.exports = (app) => {
 
     db.findProjectByID(legoSetID)
       .then(project => {
+        console.log(project);
         if (!project.length) {
           res.status(409).send({error: 'There is no such project!'});
         } else {
