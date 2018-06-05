@@ -72,7 +72,7 @@ class Database {
     });
   }
 
-  async addProject(project) {
+  async addProject(project, res) {
     const newProject = new Project({
       legoSetID: project.legoSetID,
       name: project.name,
@@ -83,6 +83,7 @@ class Database {
     });
     await newProject.save(err => {
       if (err) console.error(err);
+      res.status(200).send('Success.');
     })
     
     // return new Promise((resolve, reject) => {

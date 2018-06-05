@@ -138,10 +138,10 @@ module.exports = (app) => {
             res.status(409).send({error: 'Such project already exists!'});
           } else {
             console.log('nie wysyla promisa?');
-            db.addProject(newProject)
-            .then(() => {
-              res.status(200).send({message: 'Project successfully created.'});
-            });
+            db.addProject(newProject, res)
+            // .then(() => {
+            //   res.status(200).send({message: 'Project successfully created.'});
+            // });
           }
         });
       }
