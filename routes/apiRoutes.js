@@ -121,7 +121,7 @@ module.exports = (app) => {
       console.log(project);
       if (project) {
         console.log('juz jest ziom');
-        res.send(409, 'juz jest ziom');
+        res.status(409).send({error: 'Juz jest, ziom.'});
       } else {
         console.log('dodaje nowy');
         db.addProject(newProject)
