@@ -134,8 +134,8 @@ module.exports = (app) => {
           } else {
             console.log('nie wysyla promisa?');
             db.addProject(newProject)
-            .then(project => {
-              res.send(project);
+            .then(() => {
+              res.status(200).send({message: 'Project successfully created.'});
             });
           }
         });

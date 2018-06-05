@@ -73,18 +73,29 @@ class Database {
   }
 
   async addProject(project) {
-    return new Promise((resolve, reject) => {
-      Project.create({
-        legoSetID: project.legoSetID,
-        ownedBricks: project.ownedBricks,
-        lastModified: project.lastModified,
-        isActive: project.isActive,
-        isFavourite: project.isFavourite
-      }, (err, project) => {
-        if (err) return console.error(err);
-        resolve(project);
-      });
+    const newProject = new Project({
+      legoSetID: project.legoSetID,
+      ownedBricks: project.ownedBricks,
+      lastModified: project.lastModified,
+      isActive: project.isActive,
+      isFavourite: project.isFavourite
     });
+    await newProject.save(err => {
+      if (err) console.error(err);
+    })
+    
+    // return new Promise((resolve, reject) => {
+    //   Project.create({
+    //     legoSetID: project.legoSetID,
+    //     ownedBricks: project.ownedBricks,
+    //     lastModified: project.lastModified,
+    //     isActive: project.isActive,
+    //     isFavourite: project.isFavourite
+    //   }, (err, project) => {
+    //     if (err) return console.error(err);
+    //     resolve(project);
+    //   });
+    // });
   }
 
   async removeProject(projectID) {
