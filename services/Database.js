@@ -130,9 +130,9 @@ class Database {
   incrementOwnedBricksNumber(legoSetID, brickID) {
     return new Promise((resolve, reject) => {
       Project.update(
-        { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
+        { legoSetID: legoSetID, "bricks.brickID": brickID },
         { 
-          $inc: { "ownedBricks.$.quantity": 1 },
+          $inc: { "bricks.$.ownedQuantity": 1 },
           $set: { "lastModified": new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }) }
         },
         (err) => {
@@ -149,9 +149,9 @@ class Database {
   decrementOwnedBricksNumber(legoSetID, brickID) {
     return new Promise((resolve, reject) => {
       Project.update(
-        { legoSetID: legoSetID, "ownedBricks.brickID": brickID },
+        { legoSetID: legoSetID, "bricks.brickID": brickID },
         { 
-          $inc: { "ownedBricks.$.quantity": -1 },
+          $inc: { "bricks.$.ownedQuantity": -1 },
           $set: { "lastModified": new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }) }
         },
         (err) => {
