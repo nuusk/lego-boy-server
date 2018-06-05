@@ -85,7 +85,16 @@ class Database {
         resolve(project);
       });
     });
-   
+  }
+
+  async removeProject(projectID) {
+    return new Promise((resolve, reject) => {
+      Project.find({
+        legoSetID: projectID
+      }).remove(()=>{
+        resolve('Project successfully deleted.');
+      });
+    });
   }
 
   findProjects() {
