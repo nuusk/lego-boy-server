@@ -151,8 +151,8 @@ module.exports = (app) => {
           res.status(409).send({error: 'There is no such project!'});
         } else {
           db.removeProject(legoSetID)
-          .then(message => {
-            res.send(message);
+          .then(() => {
+            res.status(200).send({message: 'Project successfully created.'});
           });
         }
       });
