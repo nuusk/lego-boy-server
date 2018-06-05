@@ -110,9 +110,12 @@ module.exports = (app) => {
 
     db.findProjectByID(newProject.legoSetID)
     .then(project => {
+      console.log(project);
       if (project) {
+        console.log('juz jest ziom');
         res.send('juz jest ziom');
       } else {
+        console.log('dodaje nowy');
         db.addProject(newProject)
         .then(project => {
           res.send(project);
